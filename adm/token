@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## This script will set the variables needed for access to kv from the sas-bootstrap.
+
+. /opt/sas/viya/config/consul.conf
+export CONSUL_TOKEN=$(sudo cat /opt/sas/viya/config/etc/SASSecurityCertificateFramework/tokens/consul/default/management.token)
+echo -e "Variables set and ready for bootstrap..."

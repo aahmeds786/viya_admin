@@ -1,0 +1,21 @@
+---
+
+# settings that control the tool behavior
+
+# directories
+# log_dir is the directory where the log search starts
+# collect-dir is the base directory where the logs will be collected
+log_dir: /opt/sas/viya/config/var/log/
+collect_dir: /tmp/logs/
+
+# age of logs default -5m means less than 5 minutes old
+timeperiod: -5m
+
+# restrict by services, default "*" returns all services
+#services: '*identities*,*spawner*,*caslaunch*'
+services: '*'
+
+# search the collected logs for this string
+search_string: ERROR
+
+delete_after:  30m

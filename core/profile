@@ -1,0 +1,61 @@
+## For .bash_profile
+
+####
+# The following are updates to be made to ~/.bash_profile.
+# Also need to remember to record GIT_TOKEN.
+#
+# if [ -f ~/viya/core/profile ]; then
+#        . ~/viya/core/profile
+# fi
+####
+
+## Env
+export _LHOST=viya.aws.com
+export _SHOST=viya
+
+# ---- Pathing ----
+export _HOME=~
+export _NSRC=~/viya
+export _PLAYBOOK=~/sas_viya_playbook
+export ANSIBLE_CONFIG=
+export _PINV=${_NSRC}/core/inventory.ini
+export _VINV=${_PLAYBOOK}/inventory.ini
+
+export GIT_HOME=${_NSRC}
+export GIT_USER=ninewb
+export GIT_REPO=gitlab.sas.com/ninewb/viya.git
+
+# ---- Syntax Formatting ----
+export VC=$(tput setaf 45)
+export RED=$(tput setaf 1)
+export NORM=$(tput sgr0)
+export _VHEAD="[ ${VC}SAS VIYA${NORM} ]"
+export _GHEAD="[ ${VC}GITLAB${NORM} ]"
+export GVERR=${RED}ERROR:${NORM}
+
+## Aliases
+
+# ---- General -----
+alias ll='ls -ltrh'
+alias lh='ls -lah'
+alias rr='source ~/.bash_profile'
+alias cpr='ps -ef | grep $1'
+alias err='grep -rn "ERROR:" $1'
+alias valyaml='cat $1 | python -c "import sys, yaml, json; y=yaml.load(sys.stdin.read()); print json.dumps(y, indent=4)"'
+
+# ---- Git -----
+alias push='${_NSRC}/git.sh -p'
+alias pull='${_NSRC}/git.sh -y'
+
+# ---- Ansible ----
+#alias ppb='ANSIBLE_CONFIG=${_NSRC}/core/ansible.cfg && ansible-playbook -i ${_PINV} $1'
+#alias vpb='ANSIBLE_CONFIG=${_PLAYBOOK}/ansible.cfg && ansible-playbook -vvv -i ${_VINV} $1'
+alias deploy='${_NSRC}/deploy.sh'
+alias ansconfig='vi ${_NSRC}/core/ansible.cfg'
+
+# ---- SAS Viya ----
+if [ -d /opt/sas/viya ]; then
+  alias vlog='cd /opt/sas/viya/config/var/log'
+  alias vsys='cd /etc/sysconfig/sas'
+  alias kvsrc='source ${_NSRC}/adm/token'
+fi
