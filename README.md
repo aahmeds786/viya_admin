@@ -14,8 +14,6 @@ core (core content)
 
 templates ()
 
-*deploy.sh
-*git.sh
 *README.md
 
 # Need to...
