@@ -1,18 +1,12 @@
 # Content Structure
 
 adm (code often used for administrative purposes)
-      | - ldap
-      | - loghunter
-      | - stage (scripts used for staging aspects of the environment)
-              | - user_setup
-
-arch (architecture related content)
-
+      | - log
+	  | - CLI
+	  
 code
 
 core (core content)
-
-templates ()
 
 *README.md
 
