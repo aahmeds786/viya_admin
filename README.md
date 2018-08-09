@@ -1,12 +1,12 @@
 # Content Structure
 
-adm (code often used for administrative purposes)
-      | - log
-	  | - CLI
+admin (code often used for administrative purposes)
+      | - bash
+	  | - cli
 	  
-code
+code (SAS or CAS exampel scripts)
 
-core (core content)
+core (core content to support underlying scripts)
 
 *README.md
 
