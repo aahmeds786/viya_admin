@@ -1,20 +1,32 @@
-## Ready Variables for bootstrap
+#!/bin/bash
+#===========================================================================================================
+#
+#          SCRIPT: readLDAPprop.sh
+#     DESCRIPTION: This script will read the LDAP properties from Consul.
+#
+#           USAGE: realLDAPprop.sh
+#
+#===========================================================================================================
+
+## Source for bootstrap
 . /opt/sas/viya/config/consul.conf
-export CONSUL_TOKEN=$(sudo cat /opt/sas/viya/config/etc/SASSecurityCertificateFramework/tokens/consul/default/management.token) 
+export CONSUL_TOKEN=$(sudo cat /opt/sas/viya/config/etc/SASSecurityCertificateFramework/tokens/consul/default/client.token)
 
-#Read the properties from identies
+printf " ----------------------------------------------\n"
+printf "\t -- CAS_DISK_CACHE Usage Script --\n"
+printf " ----------------------------------------------\n"
+
 echo
-echo Connection Properties
+printf "${_VHEAD} \t Connection Properties \n"
+printf " - Hostname: "
 /opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.connection/host
+printf " - Port: "
 /opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.connection/port
+printf " - UserDN: "
 /opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.connection/userDN
+printf " - Password: "
 /opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.connection/password
-echo
-echo Group baseDN Property
+printf " - User BaseDN: "
 /opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.group/baseDN
-echo
-echo User baseDN Property
+printf " - Group BaseDN: "
 /opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.user/baseDN
-
- 
-
