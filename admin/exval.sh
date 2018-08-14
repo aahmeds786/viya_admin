@@ -1,4 +1,5 @@
-sshhosts=/home/ec2-user/viya/adm/sshhosts
+sshhosts=viya.aws.com
+#sshhosts=/home/ec2-user/viya/adm/sshhosts
 
 hosts=`cat ${sshhosts} | tr '\n' ' '`
 for hst in ${hosts}; do ssh ${hst} "
