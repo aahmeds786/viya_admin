@@ -7,7 +7,7 @@
 # 5/4 - added creation of 'cas' in /etc/passwd as deployment fails
 # 5/4 - added creation of home directories
 
-_PASSWD=Harmony!
+_PASSWD=
 _DOMAIN=aws.com
 _BASEDN="dc=aws,dc=com"
 
