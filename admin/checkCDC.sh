@@ -2,7 +2,7 @@
 #===========================================================================================================
 #
 #          SCRIPT: checkCDC.sh
-#     DESCRIPTION: This script can
+#     DESCRIPTION: This script will not work to identifiy usage of cas sessions in
 #
 #           USAGE: checkCDC.sh <user>
 #                  $1 - User whos session your checking.

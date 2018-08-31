@@ -13,7 +13,7 @@
 export CONSUL_TOKEN=$(sudo cat /opt/sas/viya/config/etc/SASSecurityCertificateFramework/tokens/consul/default/client.token)
 
 printf " ----------------------------------------------\n"
-printf "\t -- CAS_DISK_CACHE Usage Script --\n"
+printf "\t -- Consul LDAP Properties Script --\n"
 printf " ----------------------------------------------\n"
 
 echo

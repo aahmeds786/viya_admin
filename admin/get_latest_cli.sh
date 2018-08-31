@@ -1,7 +1,8 @@
 #!/bin/bash
 
+# This script assumes the availability of the entire viya repo.
 
-. ${_NSRC}/core/functions.sh 
+. ${_NSRC}/core/functions.sh
 
 repository_url="https://repulpmaster.unx.sas.com/pulp/repos/release-latest/svi/104.0/svi-104.0.0-x64_redhat_linux_6-yum-latest/Packages/s/"
 package_name="orchestration-cli"
