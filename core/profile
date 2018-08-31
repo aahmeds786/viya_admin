@@ -41,7 +41,7 @@ alias lh='ls -lah'
 alias rr='source ~/.bash_profile'
 alias cpr='ps -ef | grep $1'
 alias err='grep -rn "ERROR:" $1'
-alias valyaml='cat $1 | python -c "import sys, yaml, json; y=yaml.load(sys.stdin.read()); print json.dumps(y, indent=4)"'
+
 
 # ---- Git -----
 alias push='${_NSRC}/git.sh -p'
@@ -52,6 +52,7 @@ alias pull='${_NSRC}/git.sh -y'
 #alias vpb='ANSIBLE_CONFIG=${_PLAYBOOK}/ansible.cfg && ansible-playbook -vvv -i ${_VINV} $1'
 alias deploy='${_NSRC}/deploy.sh'
 alias ansconfig='vi ${_NSRC}/core/ansible.cfg'
+alias valyaml='cat $1 | python -c "import sys, yaml, json; y=yaml.load(sys.stdin.read()); print json.dumps(y, indent=4)"'
 
 # ---- SAS Viya ----
 if [ -d /opt/sas/viya ]; then
