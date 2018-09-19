@@ -1,0 +1,10 @@
+---
+- hosts: sas-all
+  gather_facts: no
+  become: yes
+  become_user: root
+  ignore_errors: true
+  tasks:
+    - name: Remote Shutdown
+      command: /sbin/shutdown -h now
+

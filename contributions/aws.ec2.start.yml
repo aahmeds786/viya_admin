@@ -1,0 +1,23 @@
+---
+- name: Start SAS Viya Instances
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  vars:
+    instance_ids:
+      - 'i-057fc79a3326922e5'
+      - 'i-0400d97509290e60e'
+      - 'i-0a4f4c5c4c4b199b5'
+      - 'i-0bbcf0ba840e74ed7'
+      - 'i-0dcd323476343d0ff'
+      - 'i-015931a83d2451905'
+      - 'i-0474ef00d2dbd0bd9'
+    region: us-east-1
+  tasks:
+    - name: Starting instances
+      ec2:
+        instance_ids: '{{ instance_ids }}'
+        region: '{{ region }}'
+        state: running
+        wait: True
+

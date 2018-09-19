@@ -44,19 +44,25 @@ alias err='grep -rn "ERROR:" $1'
 
 
 # ---- Git -----
-alias push='${_NSRC}/git.sh -p'
-alias pull='${_NSRC}/git.sh -y'
+if [ -d ${_NSRC} ]; then
+	alias push='${_NSRC}/git.sh -p'
+	alias pull='${_NSRC}/git.sh -y'
+fi
 
 # ---- Ansible ----
-#alias ppb='ANSIBLE_CONFIG=${_NSRC}/core/ansible.cfg && ansible-playbook -i ${_PINV} $1'
-#alias vpb='ANSIBLE_CONFIG=${_PLAYBOOK}/ansible.cfg && ansible-playbook -vvv -i ${_VINV} $1'
-alias deploy='${_NSRC}/deploy.sh'
-alias ansconfig='vi ${_NSRC}/core/ansible.cfg'
-alias valyaml='cat $1 | python -c "import sys, yaml, json; y=yaml.load(sys.stdin.read()); print json.dumps(y, indent=4)"'
+if [ -d ${_NSRC} ]; then
+	#alias ppb='ANSIBLE_CONFIG=${_NSRC}/core/ansible.cfg && ansible-playbook -i ${_PINV} $1'
+	#alias vpb='ANSIBLE_CONFIG=${_PLAYBOOK}/ansible.cfg && ansible-playbook -vvv -i ${_VINV} $1'
+	alias deploy='${_NSRC}/deploy.sh'
+	alias ansconfig='vi ${_NSRC}/core/ansible.cfg'
+	alias valyaml='cat $1 | python -c "import sys, yaml, json; y=yaml.load(sys.stdin.read()); print json.dumps(y, indent=4)"'
+fi
 
 # ---- SAS Viya ----
+# NOTE TO SELF
+# I would like to see if there is a quick way to source the underlying Viya scripts and populate some quick alias commands.
 if [ -d /opt/sas/viya ]; then
-  alias vlog='cd /opt/sas/viya/config/var/log'
-  alias vsys='cd /etc/sysconfig/sas'
-  alias kvsrc='source ${_NSRC}/adm/token'
+	alias vlog='cd /opt/sas/viya/config/var/log'
+	alias vsys='cd /etc/sysconfig/sas'
+	alias kvsrc='source ${_NSRC}/adm/token'
 fi

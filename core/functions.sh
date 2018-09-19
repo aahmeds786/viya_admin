@@ -1,4 +1,12 @@
 #!/bin/bash
+#===========================================================================================================
+#
+#          SCRIPT: functions.sh
+#     DESCRIPTION: This is a core script used to fascilitate functions for global use.
+#
+#           USAGE: To be sourced.
+#
+#===========================================================================================================
 
 ## Downloads and uppacks the latest RPM
 
@@ -10,7 +18,10 @@ download_and_unpackage_latest_rpm() {
     rpm2cpio ${rpm_package} | cpio -ivd
 }
 
-## Get a value from the kv
+# ----------------------------------
+# ---- Get a value from the kv -----
+# ----------------------------------
+
 GetConsulKV()
 {
    local KEY="$1"

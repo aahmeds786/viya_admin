@@ -1,0 +1,4 @@
+---
+- import_playbook: aws.ec2.start_minimal.yml
+- import_playbook: aws.ebs.minimal_add_temp.yml
+- import_playbook: viya.services.start.yml

@@ -1,0 +1,417 @@
+---
+# PRIMARY CONTROLLER
+- name: Create temporary EBS volume(s) for Primary Sandbox Controller (i-057fc79a3326922e5)
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Creating Volume and Attaching to Sandbox Primary Controller for SASCACHE
+      ec2_vol:
+        instance: 'i-057fc79a3326922e5'
+        volume_size: 10
+        device_name: /dev/xvdi
+        region: 'us-east-1'
+        volume_type: gp2
+        tags:
+          Name: SANDBOX_TEMP
+    - name: Creating Volume and Attaching to Sandbox Primary Controller for SASWORK
+      ec2_vol:
+        instance: 'i-057fc79a3326922e5'
+        volume_size: 100
+        device_name: /dev/xvdj
+        region: 'us-east-1'
+        volume_type: gp2
+        tags:
+          Name: SANDBOX_TEMP
+    - name: Pausing to allow EBS volume creation
+      pause:
+        seconds: 30
+
+- name: Create XFS filesystems and mount volumes for SASCACHE and SASWORK
+  hosts: deployTarget
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: Make XFS Filesystem for SASCACHE
+      command: mkfs.xfs -i size=512 -n size=8192 /dev/nvme2n1
+    - name: Make XFS Filesystem for SASWORK
+      command: mkfs.xfs -i size=512 -n size=8192 /dev/nvme3n1
+
+    - name: Create SASWORK directory
+      file:
+        path: /saswork
+        state: directory
+        owner: sas
+        group: sas
+        mode: 01775
+
+    - name: Create SASCACHE directory
+      file:
+        path: /sascache
+        state: directory
+        owner: sas
+        group: sas
+        mode: 01775
+
+    - name: Reload Daemon to prevent mount problems
+      command: systemctl daemon-reload
+
+    - name: Mount Filesystem to /sascache
+      mount:
+        path: /sascache
+        src: /dev/nvme2n1
+        fstype: xfs
+        opts: noatime,nodiratime,nobarrier
+        state: mounted
+    - name: Mount Filesystem to /saswork
+      mount:
+        path: /saswork
+        src: /dev/nvme3n1
+        fstype: xfs
+        opts: noatime,nodiratime,nobarrier
+        state: mounted
+
+    - name: Update permissions and ownership for SASCACHE
+      file:
+        path: /sascache
+        owner: sas
+        group: sas
+        mode: 01775
+    - name: Update permissions and ownership for SASWORK
+      file:
+        path: /saswork
+        owner: sas
+        group: sas
+        mode: 01775
+
+# CAS Worker 1
+- name: Create temporary EBS volume for CAS Worker 1 (i-0400d97509290e60e)
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Creating Volume and Attaching to Sandbox CAS Worker 1
+      ec2_vol:
+        instance: 'i-0400d97509290e60e'
+        volume_size: 100
+        device_name: /dev/xvdi
+        region: 'us-east-1'
+        volume_type: gp2
+        tags:
+          Name: SANDBOX_TEMP
+    - name: Pausing to allow EBS volume creation
+      pause:
+        seconds: 30
+
+- name: Create XFS filesystem and mount volume for SASCACHE
+  hosts: casworker1
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: Make XFS Filesystem
+      command: mkfs.xfs -i size=512 -n size=8192 /dev/nvme1n1
+
+    - name: Create SASCACHE directory
+      file:
+        path: /sascache
+        state: directory
+        owner: sas
+        group: sas
+        mode: 01775
+
+    - name: Reload Daemon to prevent mount problems
+      command: systemctl daemon-reload
+
+    - name: Mount Filesystem to /sascache
+      mount:
+        path: /sascache
+        src: /dev/nvme1n1
+        fstype: xfs
+        opts: noatime,nodiratime,nobarrier
+        state: mounted
+
+    - name: Update permissions and ownership for SASCACHE
+      file:
+        path: /sascache
+        owner: sas
+        group: sas
+        mode: 01775
+
+# CAS Worker 2
+- name: Create temporary EBS volume for CAS Worker 2 (i-0a4f4c5c4c4b199b5)
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Creating Volume and Attaching to Sandbox CAS Worker 2
+      ec2_vol:
+        instance: 'i-0a4f4c5c4c4b199b5'
+        volume_size: 100
+        device_name: /dev/xvdi
+        region: 'us-east-1'
+        volume_type: gp2
+        tags:
+          Name: SANDBOX_TEMP
+    - name: Pausing to allow EBS volume creation
+      pause:
+        seconds: 30
+
+- name: Create XFS filesystem and mount volume for SASCACHE
+  hosts: casworker2
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: Make XFS Filesystem
+      command: mkfs.xfs -i size=512 -n size=8192 /dev/nvme1n1
+
+    - name: Create SASCACHE directory
+      file:
+        path: /sascache
+        state: directory
+        owner: sas
+        group: sas
+        mode: 01775
+
+    - name: Reload Daemon to prevent mount problems
+      command: systemctl daemon-reload
+
+    - name: Mount Filesystem to /sascache
+      mount:
+        path: /sascache
+        src: /dev/nvme1n1
+        fstype: xfs
+        opts: noatime,nodiratime,nobarrier
+        state: mounted
+
+    - name: Update permissions and ownership for SASCACHE
+      file:
+        path: /sascache
+        owner: sas
+        group: sas
+        mode: 01775
+
+# CAS Worker 3
+- name: Create temporary EBS volume for CAS Worker 3 (i-0bbcf0ba840e74ed7)
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Creating Volume and Attaching to Sandbox CAS Worker 3
+      ec2_vol:
+        instance: 'i-0bbcf0ba840e74ed7'
+        volume_size: 100
+        device_name: /dev/xvdi
+        region: 'us-east-1'
+        volume_type: gp2
+        tags:
+          Name: SANDBOX_TEMP
+    - name: Pausing to allow EBS volume creation
+      pause:
+        seconds: 30
+
+- name: Create XFS filesystem and mount volume for SASCACHE
+  hosts: casworker3
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: Make XFS Filesystem
+      command: mkfs.xfs -i size=512 -n size=8192 /dev/nvme1n1
+
+    - name: Create SASCACHE directory
+      file:
+        path: /sascache
+        state: directory
+        owner: sas
+        group: sas
+        mode: 01775
+
+    - name: Reload Daemon to prevent mount problems
+      command: systemctl daemon-reload
+
+    - name: Mount Filesystem to /sascache
+      mount:
+        path: /sascache
+        src: /dev/nvme1n1
+        fstype: xfs
+        opts: noatime,nodiratime,nobarrier
+        state: mounted
+
+    - name: Update permissions and ownership for SASCACHE
+      file:
+        path: /sascache
+        owner: sas
+        group: sas
+        mode: 01775
+
+# CAS Worker 4
+- name: Create temporary EBS volume for CAS Worker 4 (i-0dcd323476343d0ff)
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Creating Volume and Attaching to Sandbox CAS Worker 4
+      ec2_vol:
+        instance: 'i-0dcd323476343d0ff'
+        volume_size: 100
+        device_name: /dev/xvdi
+        region: 'us-east-1'
+        volume_type: gp2
+        tags:
+          Name: SANDBOX_TEMP
+    - name: Pausing to allow EBS volume creation
+      pause:
+        seconds: 30
+
+- name: Create XFS filesystem and mount volume for SASCACHE
+  hosts: casworker4
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: Make XFS Filesystem
+      command: mkfs.xfs -i size=512 -n size=8192 /dev/nvme1n1
+
+    - name: Create SASCACHE directory
+      file:
+        path: /sascache
+        state: directory
+        owner: sas
+        group: sas
+        mode: 01775
+
+    - name: Reload Daemon to prevent mount problems
+      command: systemctl daemon-reload
+
+    - name: Mount Filesystem to /sascache
+      mount:
+        path: /sascache
+        src: /dev/nvme1n1
+        fstype: xfs
+        opts: noatime,nodiratime,nobarrier
+        state: mounted
+
+    - name: Update permissions and ownership for SASCACHE
+      file:
+        path: /sascache
+        owner: sas
+        group: sas
+        mode: 01775
+
+# CAS Worker 5
+- name: Create temporary EBS volume for CAS Worker 5 (i-015931a83d2451905)
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Creating Volume and Attaching to Sandbox CAS Worker 5
+      ec2_vol:
+        instance: 'i-015931a83d2451905'
+        volume_size: 100
+        device_name: /dev/xvdi
+        region: 'us-east-1'
+        volume_type: gp2
+        tags:
+          Name: SANDBOX_TEMP
+    - name: Pausing to allow EBS volume creation
+      pause:
+        seconds: 30
+
+- name: Create XFS filesystem and mount volume for SASCACHE
+  hosts: casworker5
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: Make XFS Filesystem
+      command: mkfs.xfs -i size=512 -n size=8192 /dev/nvme1n1
+
+    - name: Create SASCACHE directory
+      file:
+        path: /sascache
+        state: directory
+        owner: sas
+        group: sas
+        mode: 01775
+
+    - name: Reload Daemon to prevent mount problems
+      command: systemctl daemon-reload
+
+    - name: Mount Filesystem to /sascache
+      mount:
+        path: /sascache
+        src: /dev/nvme1n1
+        fstype: xfs
+        opts: noatime,nodiratime,nobarrier
+        state: mounted
+
+    - name: Update permissions and ownership for SASCACHE
+      file:
+        path: /sascache
+        owner: sas
+        group: sas
+        mode: 01775
+
+# CAS Worker 6
+- name: Create temporary EBS volume for CAS Worker 6 (i-0474ef00d2dbd0bd9)
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Creating Volume and Attaching to Sandbox CAS Worker 6
+      ec2_vol:
+        instance: 'i-0474ef00d2dbd0bd9'
+        volume_size: 100
+        device_name: /dev/xvdi
+        region: 'us-east-1'
+        volume_type: gp2
+        tags:
+          Name: SANDBOX_TEMP
+    - name: Pausing to allow EBS volume creation
+      pause:
+        seconds: 30
+
+- name: Create XFS filesystem and mount volume for SASCACHE
+  hosts: casworker6
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: Make XFS Filesystem
+      command: mkfs.xfs -i size=512 -n size=8192 /dev/nvme1n1
+
+    - name: Create SASCACHE directory
+      file:
+        path: /sascache
+        state: directory
+        owner: sas
+        group: sas
+        mode: 01775
+
+    - name: Reload Daemon to prevent mount problems
+      command: systemctl daemon-reload
+
+    - name: Mount Filesystem to /sascache
+      mount:
+        path: /sascache
+        src: /dev/nvme1n1
+        fstype: xfs
+        opts: noatime,nodiratime,nobarrier
+        state: mounted
+
+    - name: Update permissions and ownership for SASCACHE
+      file:
+        path: /sascache
+        owner: sas
+        group: sas
+        mode: 01775

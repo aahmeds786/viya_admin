@@ -1,0 +1,4 @@
+---
+- import_playbook: viya.services.stop.yml
+- import_playbook: aws.ebs.remove_temp.yml
+- import_playbook: aws.ec2.shutdown.yml

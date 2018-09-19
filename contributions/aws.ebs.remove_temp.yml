@@ -1,0 +1,319 @@
+---
+# PRIMARY CONTROLLER
+- name: Unmount SASWORK and SASCACHE from Primary Sandbox Controller (i-057fc79a3326922e5)
+  hosts: deployTarget
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: Unmount SASWORK
+      mount:
+        path: /saswork
+        state: absent
+    - name: Unmount SASCACHE
+      mount:
+        path: /sascache
+        state: absent
+
+- name: Remove temporary EBS volumes from Primary Sandbox Controller (i-057fc79a3326922e5)
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Get Volume Information for Instance
+      ec2_vol_facts:
+        filters:
+          "attachment.instance-id": i-057fc79a3326922e5
+          "tag:Name": SANDBOX_TEMP
+      register: volume_facts
+
+    - name: Store Volume ID(s)
+      set_fact:
+        ebs_volumes_to_remove: "{{ volume_facts.volumes | map(attribute='id') | list }}"
+
+    - name: EBS Volume IDs to Remove
+      debug:
+        var: ebs_volumes_to_remove
+
+    - name: Detach Volume(s) from instance i-057fc79a3326922e5
+      command: aws ec2 detach-volume --volume-id {{ item }}
+      with_items: "{{ ebs_volumes_to_remove }}"
+
+    - name: Pausing to allow EBS detachment
+      pause:
+        seconds: 60
+
+    - name: Remove Volume(s) from instance i-057fc79a3326922e5
+      command: aws ec2 delete-volume --volume-id {{ item }}
+      with_items: "{{ ebs_volumes_to_remove }}"
+
+ # CAS Worker 1
+- name: Unmount SASCACHE from CAS Worker 1 (i-0400d97509290e60e)
+  hosts: casworker1
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: Unmount known temporary volumes
+      mount:
+        path: /sascache
+        state: absent
+
+- name: Remove temporary EBS volumes from CAS Worker 1 (i-0400d97509290e60e)
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Get Volume Information for Instance
+      ec2_vol_facts:
+        filters:
+          "attachment.instance-id": i-0400d97509290e60e
+          "tag:Name": SANDBOX_TEMP
+      register: volume_facts
+
+    - name: Store Volume ID(s)
+      set_fact:
+        ebs_volumes_to_remove: "{{ volume_facts.volumes | map(attribute='id') | list }}"
+
+    - name: EBS Volume IDs to Remove
+      debug:
+        var: ebs_volumes_to_remove
+
+    - name: Detach Volume(s) from instance i-0400d97509290e60e
+      command: aws ec2 detach-volume --volume-id {{ item }}
+      with_items: "{{ ebs_volumes_to_remove }}"
+
+    - name: Pausing to allow EBS detachment
+      pause:
+        seconds: 60
+
+    - name: Remove Volume(s) from instance i-0400d97509290e60e
+      command: aws ec2 delete-volume --volume-id {{ item }}
+      with_items: "{{ ebs_volumes_to_remove }}"
+
+ # CAS Worker 2
+- name: Unmount SASCACHE from CAS Worker 2 (i-0a4f4c5c4c4b199b5)
+  hosts: casworker2
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: Unmount known temporary volumes
+      mount:
+        path: /sascache
+        state: absent
+
+- name: Remove temporary EBS volumes from CAS Worker 2 (i-0a4f4c5c4c4b199b5)
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Get Volume Information for Instance
+      ec2_vol_facts:
+        filters:
+          "attachment.instance-id": i-0a4f4c5c4c4b199b5
+          "tag:Name": SANDBOX_TEMP
+      register: volume_facts
+
+    - name: Store Volume ID(s)
+      set_fact:
+        ebs_volumes_to_remove: "{{ volume_facts.volumes | map(attribute='id') | list }}"
+
+    - name: EBS Volume IDs to Remove
+      debug:
+        var: ebs_volumes_to_remove
+
+    - name: Detach Volume(s) from instance i-0a4f4c5c4c4b199b5
+      command: aws ec2 detach-volume --volume-id {{ item }}
+      with_items: "{{ ebs_volumes_to_remove }}"
+
+    - name: Pausing to allow EBS detachment
+      pause:
+        seconds: 60
+
+    - name: Remove Volume(s) from instance i-0a4f4c5c4c4b199b5
+      command: aws ec2 delete-volume --volume-id {{ item }}
+      with_items: "{{ ebs_volumes_to_remove }}"
+
+ # CAS Worker 3
+- name: Unmount SASCACHE from CAS Worker 3 (i-0bbcf0ba840e74ed7)
+  hosts: casworker3
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: Unmount known temporary volumes
+      mount:
+        path: /sascache
+        state: absent
+
+- name: Remove temporary EBS volumes from CAS Worker 3 (i-0bbcf0ba840e74ed7)
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Get Volume Information for Instance
+      ec2_vol_facts:
+        filters:
+          "attachment.instance-id": i-0bbcf0ba840e74ed7
+          "tag:Name": SANDBOX_TEMP
+      register: volume_facts
+
+    - name: Store Volume ID(s)
+      set_fact:
+        ebs_volumes_to_remove: "{{ volume_facts.volumes | map(attribute='id') | list }}"
+
+    - name: EBS Volume IDs to Remove
+      debug:
+        var: ebs_volumes_to_remove
+
+    - name: Detach Volume(s) from instance i-0bbcf0ba840e74ed7
+      command: aws ec2 detach-volume --volume-id {{ item }}
+      with_items: "{{ ebs_volumes_to_remove }}"
+
+    - name: Pausing to allow EBS detachment
+      pause:
+        seconds: 60
+
+    - name: Remove Volume(s) from instance i-0bbcf0ba840e74ed7
+      command: aws ec2 delete-volume --volume-id {{ item }}
+      with_items: "{{ ebs_volumes_to_remove }}"
+
+ # CAS Worker 4
+- name: Unmount SASCACHE from CAS Worker 4 (i-0dcd323476343d0ff)
+  hosts: casworker4
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: Unmount known temporary volumes
+      mount:
+        path: /sascache
+        state: absent
+
+- name: Remove temporary EBS volumes from CAS Worker 4 (i-0dcd323476343d0ff)
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Get Volume Information for Instance
+      ec2_vol_facts:
+        filters:
+          "attachment.instance-id": i-0dcd323476343d0ff
+          "tag:Name": SANDBOX_TEMP
+      register: volume_facts
+
+    - name: Store Volume ID(s)
+      set_fact:
+        ebs_volumes_to_remove: "{{ volume_facts.volumes | map(attribute='id') | list }}"
+
+    - name: EBS Volume IDs to Remove
+      debug:
+        var: ebs_volumes_to_remove
+
+    - name: Detach Volume(s) from instance i-0dcd323476343d0ff
+      command: aws ec2 detach-volume --volume-id {{ item }}
+      with_items: "{{ ebs_volumes_to_remove }}"
+
+    - name: Pausing to allow EBS detachment
+      pause:
+        seconds: 60
+
+    - name: Remove Volume(s) from instance i-0dcd323476343d0ff
+      command: aws ec2 delete-volume --volume-id {{ item }}
+      with_items: "{{ ebs_volumes_to_remove }}"
+
+ # CAS Worker 5
+- name: Unmount SASCACHE from CAS Worker 5 (i-015931a83d2451905)
+  hosts: casworker5
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: Unmount known temporary volumes
+      mount:
+        path: /sascache
+        state: absent
+
+- name: Remove temporary EBS volumes from CAS Worker 5 (i-015931a83d2451905)
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Get Volume Information for Instance
+      ec2_vol_facts:
+        filters:
+          "attachment.instance-id": i-015931a83d2451905
+          "tag:Name": SANDBOX_TEMP
+      register: volume_facts
+
+    - name: Store Volume ID(s)
+      set_fact:
+        ebs_volumes_to_remove: "{{ volume_facts.volumes | map(attribute='id') | list }}"
+
+    - name: EBS Volume IDs to Remove
+      debug:
+        var: ebs_volumes_to_remove
+
+    - name: Detach Volume(s) from instance i-015931a83d2451905
+      command: aws ec2 detach-volume --volume-id {{ item }}
+      with_items: "{{ ebs_volumes_to_remove }}"
+
+    - name: Pausing to allow EBS detachment
+      pause:
+        seconds: 60
+
+    - name: Remove Volume(s) from instance i-015931a83d2451905
+      command: aws ec2 delete-volume --volume-id {{ item }}
+      with_items: "{{ ebs_volumes_to_remove }}"
+
+ # CAS Worker 6
+- name: Unmount SASCACHE from CAS Worker 6 (i-0474ef00d2dbd0bd9)
+  hosts: casworker6
+  gather_facts: no
+  become: yes
+  become_user: root
+  tasks:
+    - name: Unmount known temporary volumes
+      mount:
+        path: /sascache
+        state: absent
+
+- name: Remove temporary EBS volumes from CAS Worker 6 (i-0474ef00d2dbd0bd9)
+  hosts: localhost
+  gather_facts: false
+  connection: local
+
+  tasks:
+    - name: Get Volume Information for Instance
+      ec2_vol_facts:
+        filters:
+          "attachment.instance-id": i-0474ef00d2dbd0bd9
+          "tag:Name": SANDBOX_TEMP
+      register: volume_facts
+
+    - name: Store Volume ID(s)
+      set_fact:
+        ebs_volumes_to_remove: "{{ volume_facts.volumes | map(attribute='id') | list }}"
+
+    - name: EBS Volume IDs to Remove
+      debug:
+        var: ebs_volumes_to_remove
+
+    - name: Detach Volume(s) from instance i-0474ef00d2dbd0bd9
+      command: aws ec2 detach-volume --volume-id {{ item }}
+      with_items: "{{ ebs_volumes_to_remove }}"
+
+    - name: Pausing to allow EBS detachment
+      pause:
+        seconds: 60
+
+    - name: Remove Volume(s) from instance i-0474ef00d2dbd0bd9
+      command: aws ec2 delete-volume --volume-id {{ item }}
+      with_items: "{{ ebs_volumes_to_remove }}"
