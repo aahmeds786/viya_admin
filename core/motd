@@ -1,0 +1,20 @@
+#!/bin/sh
+
+UPTIME_DAYS=$(expr `cat /proc/uptime | cut -d '.' -f1` % 31556926 / 86400)
+UPTIME_HOURS=$(expr `cat /proc/uptime | cut -d '.' -f1` % 31556926 % 86400 / 3600)
+UPTIME_MINUTES=$(expr `cat /proc/uptime | cut -d '.' -f1` % 31556926 % 86400 % 3600 / 60)
+_INFILE=~/sas_viya_playbook/SASViyaV*.txt
+
+cat << EOF
+ % Welcome...                                                                 %
+ %+++++++++++++++++++++++++++++++ SERVER INFO ++++++++++++++++++++++++++++++++%
+ %                                                                            %
+      Name: `hostname -f`
+      Uptime: $UPTIME_DAYS days, $UPTIME_HOURS hours, $UPTIME_MINUTES minutes
+
+      SAS Viya 
+      Order #: 
+      SITE ID: `awk '/SITE=/ {print $1}' $_INFILE | cut -f2- -d=`
+      Expiration: `awk '/EXPIRE=/ {print $2}' $_INFILE | cut -f2- -d=`
+ %+++++++++++++++++++++++++++++++ SERVER INFO ++++++++++++++++++++++++++++++++%
+EOF
