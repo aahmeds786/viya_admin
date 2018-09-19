@@ -1,0 +1,52 @@
+# Site-Specific Defaults
+#
+config:
+    svi-vsd-service:
+        vsd:
+            createTenantCasLib: "true"
+    application:
+        cas:
+            password: "Harmony!"
+            username: "cas"
+        locale:
+            default: 'en-US'
+        sas.identities.providers.ldap.connection:
+            host: 'viya.aws.com'
+            password: 'Harmony!'
+            port: '389'
+            url: 'ldap://viya.aws.com:389'
+            userDN: 'cn=admin,dc=aws,dc=com'
+        sas.identities.providers.ldap.group:
+            accountId: 'cn'
+            baseDN: 'dc=aws,dc=com'
+            member: 'uniqueMember'
+            memberOf: 'memberOf'
+            objectClass: 'posixGroup'
+            objectFilter: '(objectClass=groupOfUniqueNames)'
+            searchFilter: '(cn={0})'
+        sas.identities.providers.ldap.tenancy:
+            userRdn: 'ou=users'
+        sas.identities.providers.ldap.user:
+            accountId: 'uid'
+            baseDN: 'dc=aws,dc=com'
+            customFilter: ''
+            memberOf: 'memberOf'
+            objectClass: 'inetOrgPerson'
+            objectFilter: '(objectClass=inetOrgPerson)'
+            searchFilter: 'uid={0}'
+        sas.identities:
+            administrator: "sas"
+        sas:
+            multi:
+                tenancy:
+                    enabled: 'false'
+        deployment:
+            highAvailabilityEnabled: 'false'
+    postgres:
+        sas.dataserver.conf:
+            common:
+                max_connections: '1000'
+        sas.dataserver.pool:
+            common:
+                num_init_children: '1000'
+                max_pool: '2'
