@@ -1,0 +1,57 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+
+  tasks:
+
+  - name: make NetworkManager dns configure  none
+    lineinfile:
+      dest: /etc/NetworkManager/NetworkManager.conf
+      regexp: "^dns="
+      line: 'dns=none'
+      insertafter: '^\[main\]'
+      backup: yes
+    register: "file1"
+
+  - name: make peerdns no
+    lineinfile:
+      dest: /etc/sysconfig/network-scripts/ifcfg-eth0
+      regexp: "^PEERDNS="
+      line: 'PEERDNS="no"'
+      backup: yes
+    register: "file2"
+
+## added for RHEL 7.4
+  - name: Ensure that dnsmasq is installed
+    yum:
+      name: dnsmasq
+      state: present
+    #if we wanted to only do this on rhel 7.4, we could:
+    #when: ansible_distribution_version == '7.4'
+
+  - name: configure dnsmasq
+    blockinfile:
+      dest: /etc/dnsmasq.d/sas.conf
+      backup: yes
+      create: yes
+      marker: "#### -- {mark} SAS DNS"
+      insertbefore: BOF
+      block: |
+       server=10.249.0.2
+       server=/sas.com/10.19.1.23
+       server=/sas.com/10.19.1.24
+    register: "file3"
+
+
+  - name: We restart the Network and NetworkManager service for the changes to take effect
+    service:
+      name: "{{ item }}"
+      state: restarted
+      enabled: yes
+    with_items:
+        - network
+        - NetworkManager
+        - dnsmasq
+    when: file1.changed or file2.changed or file3.changed
+
