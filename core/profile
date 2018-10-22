@@ -69,4 +69,9 @@ if [ -d /opt/sas/viya ]; then
 	alias vlog='cd /opt/sas/viya/config/var/log'
 	alias vsys='cd /etc/sysconfig/sas'
 	alias kvsrc='source ${_NSRC}/adm/token'
+	
+	export SASHOME=/opt/sas/spre/home
+        export SASVIYAHOME=/opt/sas/viya/home
+        export SASVIYAUTIL=$SASHOME/SASFoundation/utilities
+        export PATH=$PATH:$SASHOME/bin:$SASVIYAHOME/bin:$SASVIYAUTIL/bin
 fi
