@@ -1,0 +1,21 @@
+# Site Specific Defaults
+#
+# For instructions on how to use this file, see:
+# http://documentation.sas.com/?softwareId=calcdc&softwareVersion=production.a&softwareContextId=sitedefault
+config:
+    application:
+        sas.multi.tenancy.enabled: true
+        sas.multi.tenancy.db.mode: databasePerTenant
+        spring:
+            datasource.initialSize: ${spring.datasource.tomcat.initialSize}
+            datasource.maxIdle: ${spring.datasource.tomcat.maxIdle}
+            datasource.maxActive: ${spring.datasource.tomcat.maxActive}
+            datasource.minEvictableTimeMillis: ${spring.datasource.tomcat.minEvictableTimeMillis}
+            datasource.minIdle: ${spring.datasource.tomcat.minIdle}
+            datasource.tomcat.initialSize: 0
+            datasource.tomcat.maxIdle: 0
+            datasource.tomcat.minEvictableTimeMillis: 30000
+            datasource.tomcat.minIdle: 0
+        zones:
+            internal.hostnames: rnd.aws.com,aero.rnd.aws.com,cosmo.rnd.aws.com,deca.rnd.aws.com,eco.rnd.aws.com,geo.rnd.aws.com,hex.rnd.aws.com,oxy.rnd.aws.com,uni.rnd.aws.com
+

@@ -68,5 +68,5 @@ fi
 if [ -d /opt/sas/viya ]; then
 	alias vlog='cd /opt/sas/viya/config/var/log'
 	alias vsys='cd /etc/sysconfig/sas'
-	alias kvsrc='source ${_NSRC}/adm/token'
+	alias kvsrc='source ${_NSRC}/admin/token'
 fi

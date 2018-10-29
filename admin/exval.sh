@@ -4,6 +4,8 @@ sshhosts=/workspace/viya/admin/sshhosts
 hosts=`cat ${sshhosts} | tr '\n' ' '`
 for hst in ${hosts}; do ssh ${hst} "
         sudo yum remove -y sas-*
+	sudo yum remove -y httpd
+	sudo yum groups mark remove 'sas-yg*'
         sudo rm -rf /etc/sysconfig/sas
         sudo rm -rf /opt/sas/*
         sudo rm -rf /tmp/*
