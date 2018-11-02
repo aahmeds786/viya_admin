@@ -12,7 +12,8 @@
 ## Env Variables
 
 # ---- Intrim ----
-export PS1="\e[0;97m\]`uname -n`\e[0m\]|\e[93m\]`whoami`\e[0m\] $ "
+#export PS1='\e[0;97m\]`uname -n`\e[0m\]|\e[93m\]`whoami`\e[0m\] $ '
+export PS1='\H\e[93m\].\u\e[0m\] $ '
 export _LHOST=`hostname -f`
 export _SHOST=`hostname -s`
 
@@ -68,14 +69,10 @@ fi
 if [ -d /opt/sas/viya ]; then
 	alias vlog='cd /opt/sas/viya/config/var/log'
 	alias vsys='cd /etc/sysconfig/sas'
-<<<<<<< HEAD
 	alias kvsrc='source ${_NSRC}/admin/token'
-=======
 	alias kvsrc='source ${_NSRC}/adm/token'
-	
 	export SASHOME=/opt/sas/spre/home
         export SASVIYAHOME=/opt/sas/viya/home
         export SASVIYAUTIL=$SASHOME/SASFoundation/utilities
         export PATH=$PATH:$SASHOME/bin:$SASVIYAHOME/bin:$SASVIYAUTIL/bin
->>>>>>> 6ce284fd872a0522025c47d5171689aaa03b6c78
 fi
