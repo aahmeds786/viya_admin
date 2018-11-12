@@ -6,13 +6,13 @@ config:
             createTenantCasLib: "true"
     application:
         cas:
-            password: "Harmony!"
+            password: ""
             username: "cas"
         locale:
             default: 'en-US'
         sas.identities.providers.ldap.connection:
             host: 'viya.aws.com'
-            password: 'Harmony!'
+            password: ''
             port: '389'
             url: 'ldap://viya.aws.com:389'
             userDN: 'cn=admin,dc=aws,dc=com'
