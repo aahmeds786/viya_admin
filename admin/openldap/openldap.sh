@@ -7,7 +7,7 @@
 # 5/4 - added creation of 'cas' in /etc/passwd as deployment fails
 # 5/4 - added creation of home directories
 
-_PASSWD=Harmony!
+_PASSWD=progress
 _DOMAIN=aws.com
 _BASEDN="dc=aws,dc=com"
 _REPOROOT=/workspace
@@ -35,7 +35,7 @@ function build_users() {
 }
 
 function mkhomedir() {
-_ULIST=$(grep uid: $REPOROOT/viya/admin/openldap/passwd.ldif | awk '{print $2}')
+_ULIST=$(grep uid: $_REPOROOT/viya/admin/openldap/passwd.ldif | awk '{print $2}')
 
 for user in ${_ULIST}; do
  if [ ! -d /home/${user} ]; then
@@ -49,7 +49,7 @@ done
 
 # ------------------------------------------
 
-_OCONFIG=$REPOROOT/viya/admin/openldap
+_OCONFIG=$_REPOROOT/viya/admin/openldap
 _OPATH=/etc/openldap/slapd.d/cn=config
 _MTOOLS=/usr/share/migrationtools
 

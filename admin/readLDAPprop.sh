@@ -19,30 +19,27 @@ printf " ----------------------------------------------\n"
 echo
 printf "${_VHEAD} \t Connection Properties \n"
 printf " - Hostname: "
-/opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.connection/host
+/opt/sas/viya/home/bin/sas-bootstrap-config kv read --recurse config/identities/sas.identities.providers.ldap.connection/host
 printf " - Port: "
-/opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.connection/port
+/opt/sas/viya/home/bin/sas-bootstrap-config kv read --recurse config/identities/sas.identities.providers.ldap.connection/port
 printf " - Connection BaseDN: "
-/opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.connection/userDN
+/opt/sas/viya/home/bin/sas-bootstrap-config kv read --recurse config/identities/sas.identities.providers.ldap.connection/userDN
 printf " - Password: "
-/opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.connection/password
+/opt/sas/viya/home/bin/sas-bootstrap-config kv read --recurse config/identities/sas.identities.providers.ldap.connection/password
 printf " - URL Connection: "
-/opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.connection/url
-
-rintf " - URL Connection: "
-/opt/sas/viya/home/bin/sas-bootstrap-config  kv read
+/opt/sas/viya/home/bin/sas-bootstrap-config kv read --recurse config/identities/sas.identities.providers.ldap.connection/url
 
 printf " - Group BaseDN: "
-/opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.group/baseDN
+/opt/sas/viya/home/bin/sas-bootstrap-config kv read --recurse config/identities/sas.identities.providers.ldap.group/baseDN
 printf " - Group Account ID: "
-/opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.group/accountId
+/opt/sas/viya/home/bin/sas-bootstrap-config kv read --recurse config/identities/sas.identities.providers.ldap.group/accountId
 printf " - Group Object Filter: "
-/opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.group/objectFilter
+/opt/sas/viya/home/bin/sas-bootstrap-config kv read --recurse config/identities/sas.identities.providers.ldap.group/objectFilter
 
 
 printf " - User BaseDN: "
-/opt/sas/viya/home/bin/sas-bootstrap-config  kv read --recurse config/identities/sas.identities.providers.ldap.user/baseDN
+/opt/sas/viya/home/bin/sas-bootstrap-config kv read --recurse config/identities/sas.identities.providers.ldap.user/baseDN
 # User Account ID
-config/identities/sas.identities.providers.ldap.user/accountId
+/opt/sas/viya/home/bin/sas-bootstrap-config kv read --recurse config/identities/sas.identities.providers.ldap.user/accountId
 # User Object Filter
-config/identities/sas.identities.providers.ldap.user/objectFilter
+/opt/sas/viya/home/bin/sas-bootstrap-config kv read --recurse config/identities/sas.identities.providers.ldap.user/objectFilter
