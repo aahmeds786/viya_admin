@@ -4,6 +4,11 @@
 # http://documentation.sas.com/?softwareId=calcdc&softwareVersion=production.a&softwareContextId=sitedefault
 config:
     application:
+        deployment:
+            ev.metrics.enabled: false
+        sas.bootstrap.jobs.enabled: false
+        sas.bootstrap.jobexecution.enabled: false
+        sas.bootstrap.report.definitions.enabled: false
         sas.multi.tenancy.enabled: true
         sas.multi.tenancy.db.mode: databasePerTenant
         spring:
@@ -17,5 +22,5 @@ config:
             datasource.tomcat.minEvictableTimeMillis: 30000
             datasource.tomcat.minIdle: 0
         zones:
-            internal.hostnames: rnd.aws.com,aero.rnd.aws.com,cosmo.rnd.aws.com,deca.rnd.aws.com,eco.rnd.aws.com,geo.rnd.aws.com,hex.rnd.aws.com,oxy.rnd.aws.com,uni.rnd.aws.com
+            internal.hostnames: rnd.aws.com
 

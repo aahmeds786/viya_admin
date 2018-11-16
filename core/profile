@@ -60,6 +60,7 @@ if [ -d ${_NSRC} ]; then
 	#alias vpb='ANSIBLE_CONFIG=${_PLAYBOOK}/ansible.cfg && ansible-playbook -vvv -i ${_VINV} $1'
 	#alias deploy='${_NSRC}/deploy.sh'
 	alias ansconfig='vi ${_NSRC}/core/ansible.cfg'
+	alias tenant='ansible-playbook -i inventory.ini utility/multi-tenancy.yml -e "@$1" -vv'
 	alias valyaml='cat $1 | python -c "import sys, yaml, json; y=yaml.load(sys.stdin.read()); print json.dumps(y, indent=4)"'
 fi
 
