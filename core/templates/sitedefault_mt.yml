@@ -3,6 +3,9 @@
 # For instructions on how to use this file, see:
 # http://documentation.sas.com/?softwareId=calcdc&softwareVersion=production.a&softwareContextId=sitedefault
 config:
+    SASVisualInvestigator:
+      sas.commons.web.security:
+        content-security-policy-enabled: 'false'
     application:
         deployment:
             ev.metrics.enabled: false
@@ -21,6 +24,7 @@ config:
             datasource.tomcat.maxIdle: 0
             datasource.tomcat.minEvictableTimeMillis: 30000
             datasource.tomcat.minIdle: 0
+            datasource.tomcat.maxActive: 100
         zones:
             internal.hostnames: rnd.aws.com
 
