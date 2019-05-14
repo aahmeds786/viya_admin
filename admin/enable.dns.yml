@@ -38,9 +38,6 @@
       marker: "#### -- {mark} SAS DNS"
       insertbefore: BOF
       block: |
-       server=10.249.0.2
-       server=/sas.com/10.19.1.23
-       server=/sas.com/10.19.1.24
     register: "file3"
 
 
