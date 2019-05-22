@@ -89,3 +89,4 @@ if [ -d $SASHOME ]; then
 	alias saswas='cd $SASCONFIG/Web/WebAppServer'
 	export FCFBASE=$SASCONFIG/Applications/SASComplianceSolutions
 	export PATH=$SASHOME/SASEnvironmentManagerAgent/2.5/installer/bin:$PATH
+fi
