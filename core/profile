@@ -38,6 +38,11 @@ export _VHEAD="[ ${VC}SAS VIYA${NORM} ]"
 export _GHEAD="[ ${VC}GITHUB${NORM} ]"
 export GVERR=${RED}ERROR:${NORM}
 
+# ---- SAS 9.4 ----
+export SASHOME=/opt/sas/94
+export SASCONFIG=/opt/sas/config/Lev1
+export SASROOT=$SASHOME/SASFoundation/9.4
+
 ## Aliases
 
 # ---- General -----
@@ -77,3 +82,10 @@ if [ -d /opt/sas/viya ]; then
         export SASVIYAUTIL=$SASHOME/SASFoundation/utilities
         export PATH=$PATH:$SASHOME/bin:$SASVIYAHOME/bin:$SASVIYAUTIL/bin
 fi
+
+if [ -d $SASHOME ]; then
+	alias sashome='cd $SASHOME'
+	alias sasconfig='cd $SASCONFIG'
+	alias saswas='cd $SASCONFIG/Web/WebAppServer'
+	export FCFBASE=$SASCONFIG/Applications/SASComplianceSolutions
+	export PATH=$SASHOME/SASEnvironmentManagerAgent/2.5/installer/bin:$PATH
